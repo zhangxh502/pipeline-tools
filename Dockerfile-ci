@@ -1,0 +1,5 @@
+FROM rancher/pipeline-tools:v0.1.9
+
+COPY kube-apply.sh /usr/bin/
+
+RUN chmod +x kube-apply.sh
