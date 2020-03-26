@@ -1,3 +1,4 @@
+cd /home/jenkins/workspace/$CI_PIPELINE_NAME
 
 if [ -z "$CI_DEPLOYMENT_CONFIG" ] && [ -z "$CI_DEPLOYMENT_CONTENT" ]
 then
@@ -7,8 +8,8 @@ fi
 
 if [ -n "$CI_DEPLOYMENT_CONTENT" ]
 then
-YAML_PATH="./deployment.yaml"
-cat <<EOF> $YAML_PATH
+CI_DEPLOYMENT_CONFIG="./.yicloud-deployment.yaml"
+cat <<EOF> $CI_DEPLOYMENT_CONFIG
 $YAML_CONTENT
 EOF
 fi
@@ -19,6 +20,6 @@ then
         exit 1
 fi
 
-sed -i 's^${CI_BUILD_NUMBER}^'"$CI_BUILD_NUMBER^g" "$YAML_PATH"
+sed -i 's^${CI_BUILD_NUMBER}^'"$CI_BUILD_NUMBER^g" "$CI_DEPLOYMENT_CONFIG"
 
-kubectl apply -f "$YAML_PATH"
+kubectl apply -f "$CI_DEPLOYMENT_CONFIG"
