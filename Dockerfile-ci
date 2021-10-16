@@ -3,3 +3,5 @@ FROM rancher/pipeline-tools:v0.1.9
 COPY kube-apply.sh /usr/bin/
 
 RUN chmod +x /usr/bin/kube-apply.sh && rm -r /usr/bin/kube-apply
+
+CMD ["/usr/bin/kube-apply.sh"]
